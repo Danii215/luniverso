@@ -2,7 +2,7 @@
     "name": "luniverso",
     "private": true,
     "scripts": {
-        "dev": "concurrently -n site,game \"bun run dev:site\" \"bun run dev:game\"",
+        "dev": "bun x concurrently -n site,game \"bun run dev:site\" \"bun run dev:game\"",
         "dev:site": "cd luniverso-site && npx next dev",
         "dev:game": "cd luniverso-game && bun run dev",
         "build": "bun run build:site && bun run build:game",
@@ -14,7 +14,5 @@
         "logs": "pm2 logs",
         "deploy": "bun run build && bun run restart"
     },
-    "devDependencies": {
-        "concurrently": "^9.2.1"
-    }
+    "devDependencies": {}
 }
