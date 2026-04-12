@@ -7,13 +7,13 @@ GAME="$ROOT/luniverso-game"
 
 case "${1:-help}" in
   dev)
-    (cd "$SITE" && npx next dev) &
+    (cd "$SITE" && node_modules/.bin/next dev) &
     (cd "$GAME" && bun run dev) &
     wait
     ;;
   build)
     echo "==> Building site..."
-    (cd "$SITE" && npx next build)
+    (cd "$SITE" && node_modules/.bin/next build)
     echo "==> Building game..."
     (cd "$GAME" && bun run build:prod)
     echo "==> Done."
