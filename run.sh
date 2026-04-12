@@ -4,6 +4,7 @@ set -e
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 SITE="$ROOT/luniverso-site"
 GAME="$ROOT/luniverso-game"
+AUTH="$ROOT/luniverso-auth"
 
 case "${1:-help}" in
   dev)
@@ -16,6 +17,8 @@ case "${1:-help}" in
     (cd "$SITE" && node_modules/.bin/next build)
     echo "==> Building game..."
     (cd "$GAME" && bun run build:prod)
+    echo "==> Building auth..."
+    (cd "$AUTH" && bun run build)
     echo "==> Done."
     ;;
   start)
