@@ -3,10 +3,10 @@
     "private": true,
     "scripts": {
         "dev": "concurrently -n site,game \"bun run dev:site\" \"bun run dev:game\"",
-        "dev:site": "cd luniverso-site && bun run dev",
+        "dev:site": "cd luniverso-site && npx next dev",
         "dev:game": "cd luniverso-game && bun run dev",
         "build": "bun run build:site && bun run build:game",
-        "build:site": "cd luniverso-site && bun run build",
+        "build:site": "cd luniverso-site && npx next build",
         "build:game": "cd luniverso-game && bun run build:prod",
         "start": "pm2 start ecosystem.config.cjs",
         "stop": "pm2 stop all",

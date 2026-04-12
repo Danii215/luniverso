@@ -5,7 +5,7 @@ module.exports = {
     {
       name: "luniverso-site",
       cwd: path.join(__dirname, "luniverso-site"),
-      script: "node_modules/.bin/next",
+      script: "node_modules/next/dist/bin/next",
       args: "start --port 3000",
       restart_delay: 3000,
     },
