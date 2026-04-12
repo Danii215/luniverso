@@ -18,7 +18,7 @@ case "${1:-help}" in
     echo "==> Building game..."
     (cd "$GAME" && bun run build:prod)
     echo "==> Building auth..."
-    (cd "$AUTH" && bun run build)
+    (cd "$AUTH" && bunx prisma generate && bun run build)
     echo "==> Done."
     ;;
   start)
