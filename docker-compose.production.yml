@@ -1,0 +1,17 @@
+services:
+    auth:
+        command: node dist/main # start:prod chama isso, mas mais explícito assim
+
+    site:
+        command: node_modules/.bin/next start
+
+    # game-static não precisa de command. o nginx do container já cuida
+
+    game-server:
+        command: node dist/server.js
+
+    postgres:
+        ports: []
+
+    redis:
+        ports: []
