@@ -1,6 +1,6 @@
 services:
     auth:
-        command: node dist/main # start:prod chama isso, mas mais explícito assim
+        command: node dist/src/main.js
 
     site:
         command: node_modules/.bin/next start
