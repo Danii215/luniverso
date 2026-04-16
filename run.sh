@@ -14,10 +14,15 @@ case "${1:-help}" in
     docker compose down
     ;;
   build)
+    ln -sf "$ROOT/.env.production" "$ROOT/.env"
     docker compose \
       -f docker-compose.yml \
       -f docker-compose.production.yml \
-      build
+      build --no-cache
+    ;;
+  clean)
+    docker system prune -af
+    docker volume prune -f
     ;;
   migrate)
     docker compose \
