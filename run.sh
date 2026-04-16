@@ -1,7 +1,13 @@
+#!/usr/bin/env bash
+set -e
+
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+
 case "${1:-help}" in
   dev)
-    set -a && source .env.development && set +a
-    ENV=development docker compose \
+    set -a && source "$ROOT/.env.development" && set +a
+    export ENV=development
+    docker compose \
       -f docker-compose.yml \
       -f docker-compose.development.yml \
       up
@@ -9,33 +15,39 @@ case "${1:-help}" in
   stop)
     docker compose down
     ;;
-  deploy)
-    "$0" build
-    set -a && source .env.production && set +a
-    ENV=production docker compose \
+  build)
+    set -a && source "$ROOT/.env.production" && set +a
+    export ENV=production
+    docker compose \
+      -f docker-compose.yml \
+      -f docker-compose.production.yml \
+      build
+    ;;
+  migrate)
+    set -a && source "$ROOT/.env.production" && set +a
+    export ENV=production
+    docker compose \
       -f docker-compose.yml \
       -f docker-compose.production.yml \
       run --rm migrate
-    "$0" start
     ;;
   start)
-    set -a && source .env.production && set +a
-    ENV=production docker compose \
+    set -a && source "$ROOT/.env.production" && set +a
+    export ENV=production
+    docker compose \
       -f docker-compose.yml \
       -f docker-compose.production.yml \
       up -d
     ;;
-  build)
-    set -a && source .env.production && set +a
-    ENV=production docker compose \
-      -f docker-compose.yml \
-      -f docker-compose.production.yml \
-      build
+  deploy)
+    "$0" build
+    "$0" migrate
+    "$0" start
     ;;
   logs)
     docker compose logs -f
     ;;
   *)
-    echo "Usage: ./run.sh {dev|build|start|stop|logs|deploy}"
+    echo "Usage: ./run.sh {dev|build|migrate|start|stop|logs|deploy}"
     ;;
 esac
