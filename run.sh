@@ -5,8 +5,7 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 case "${1:-help}" in
   dev)
-    set -a && source "$ROOT/.env.development" && set +a
-    export ENV=development
+    ln -sf "$ROOT/.env.development" "$ROOT/.env"
     docker compose \
       -f docker-compose.yml \
       -f docker-compose.development.yml \
@@ -16,24 +15,21 @@ case "${1:-help}" in
     docker compose down
     ;;
   build)
-    set -a && source "$ROOT/.env.production" && set +a
-    export ENV=production
+    ln -sf "$ROOT/.env.production" "$ROOT/.env"
     docker compose \
       -f docker-compose.yml \
       -f docker-compose.production.yml \
       build
     ;;
   migrate)
-    set -a && source "$ROOT/.env.production" && set +a
-    export ENV=production
+    ln -sf "$ROOT/.env.production" "$ROOT/.env"
     docker compose \
       -f docker-compose.yml \
       -f docker-compose.production.yml \
       run --rm migrate
     ;;
   start)
-    set -a && source "$ROOT/.env.production" && set +a
-    export ENV=production
+    ln -sf "$ROOT/.env.production" "$ROOT/.env"
     docker compose \
       -f docker-compose.yml \
       -f docker-compose.production.yml \
