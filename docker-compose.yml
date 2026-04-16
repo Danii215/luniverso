@@ -29,7 +29,7 @@ services:
         depends_on:
             postgres:
                 condition: service_healthy
-        command: npx prisma migrate deploy
+        command: echo $DATABASE_URL && npx prisma migrate deploy
         restart: no
     # ─── Aplicações ───────────────────────────────────────────────
     auth:
