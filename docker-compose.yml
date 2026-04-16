@@ -15,6 +15,16 @@ services:
         restart: unless-stopped
         volumes:
             - redis_data:/data
+
+    migrate:
+        build:
+            context: ./luniverso-auth
+            dockerfile: Dockerfile
+        env_file: .env.${ENV:-production}
+        depends_on:
+            - postgres
+        command: npx prisma migrate deploy
+        restart: no
     # ─── Aplicações ───────────────────────────────────────────────
     auth:
         build:

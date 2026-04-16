@@ -22,6 +22,11 @@ case "${1:-help}" in
     ;;
   deploy)
     "$0" build
+    # Roda migrations antes de subir
+    ENV=production docker compose \
+      -f docker-compose.yml \
+      -f docker-compose.production.yml \
+      run --rm migrate
     "$0" start
     ;;
   logs)
