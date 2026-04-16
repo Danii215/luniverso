@@ -46,6 +46,6 @@ case "${1:-help}" in
     docker compose logs -f
     ;;
   *)
-    echo "Usage: ./run.sh {dev|build|migrate|start|stop|logs|deploy}"
+    echo "Usage: ./run.sh {dev|build|migrate|start|stop|logs|deploy|clean}"
     ;;
 esac
