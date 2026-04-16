@@ -37,6 +37,7 @@ case "${1:-help}" in
       up -d
     ;;
   deploy)
+    "$0" clean
     "$0" build
     "$0" migrate
     "$0" start
