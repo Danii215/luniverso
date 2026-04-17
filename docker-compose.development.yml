@@ -7,14 +7,6 @@ services:
             - ./luniverso-auth:/app
             - /app/node_modules
 
-    site:
-        image: oven/bun:latest
-        working_dir: /app
-        command: sh -c "bun install && bun run dev"
-        volumes:
-            - ./luniverso-site:/app
-            - /app/node_modules
-
     game-server:
         image: oven/bun:latest
         working_dir: /app
@@ -22,13 +14,6 @@ services:
         volumes:
             - ./luniverso-game:/app
             - /app/node_modules
-
-    #game-static:
-    #    image: oven/bun:latest
-    #    command: sh -c "bun install && bun run dev"
-    #    volumes:
-    #        - ./luniverso-game:/app
-    #        - /app/node_modules
 
     nginx:
         ports:

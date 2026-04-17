@@ -9,7 +9,10 @@ case "${1:-help}" in
     docker compose \
       -f docker-compose.yml \
       -f docker-compose.development.yml \
-      up
+      up -d
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    cd "$ROOT/luniverso-site" && nvm use 22 && bun run dev &
     ;;
   stop)
     docker compose down
