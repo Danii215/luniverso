@@ -1,28 +1,37 @@
 services:
     auth:
-        command: bun run start:dev
+        image: oven/bun:latest
+        working_dir: /app
+        command: sh -c "bun install && bunx prisma generate && bun run start"
         volumes:
             - ./luniverso-auth:/app
             - /app/node_modules
 
     site:
-        command: bun run dev
+        image: oven/bun:latest
+        working_dir: /app
+        command: sh -c "bun install && bun run dev"
         volumes:
             - ./luniverso-site:/app
             - /app/node_modules
 
-    game-static:
-        command: bun run dev:static # ajustar depois
+    game-server:
+        image: oven/bun:latest
+        working_dir: /app
+        command: bun run ./src/server.ts
         volumes:
             - ./luniverso-game:/app
             - /app/node_modules
 
-    game-server:
-        command: bun run dev:server # ajustar depois
-        volumes:
-            - ./luniverso-game:/app
-            - /app/node_modules
+    #game-static:
+    #    image: oven/bun:latest
+    #    command: sh -c "bun install && bun run dev"
+    #    volumes:
+    #        - ./luniverso-game:/app
+    #        - /app/node_modules
 
     nginx:
         ports:
             - "80:80"
+        volumes:
+            - ./infra/nginx/development.conf:/etc/nginx/conf.d/default.conf:ro

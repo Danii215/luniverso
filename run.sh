@@ -5,6 +5,7 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 case "${1:-help}" in
   dev)
+    ln -sf "$ROOT/.env.development" "$ROOT/.env"
     docker compose \
       -f docker-compose.yml \
       -f docker-compose.development.yml \
